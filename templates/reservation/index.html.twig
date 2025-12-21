@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations - MonSite{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+<!-- Formulaire de réservation -->
+<section class="section__container">
+    <h2 class="section__header">Réservez votre séjour</h2>
+
+    {% for flash in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ flash }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form, {'attr': {'class': 'booking__container', 'data-turbo': 'false'}}) }}
+        
+        <!-- Civilité -->
+        <div class="input__group">
+            {{ form_label(form.civility, 'Civilité') }}
+            {{ form_widget(form.civility, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.civility) }}
+        </div>
+
+        <!-- Prénom -->
+        <div class="input__group">
+            {{ form_label(form.firstName, 'Prénom') }}
+            {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.firstName) }}
+        </div>
+
+        <!-- Nom -->
+        <div class="input__group">
+            {{ form_label(form.lastName, 'Nom') }}
+            {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.lastName) }}
+        </div>
+
+        <!-- Email -->
+        <div class="input__group">
+            {{ form_label(form.email, 'Email') }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.email) }}
+        </div>
+
+        <!-- Téléphone -->
+        <div class="input__group">
+            {{ form_label(form.phone, 'Téléphone') }}
+            {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.phone) }}
+        </div>
+
+        <!-- Nationalité -->
+        <div class="input__group">
+            {{ form_label(form.nationalite, 'Nationalité') }}
+            {{ form_widget(form.nationalite, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nationalite) }}
+        </div>
+
+        <!-- Date début réservation -->
+        <div class="input__group">
+            {{ form_label(form.dateStartReservation, 'Date début réservation') }}
+            {{ form_widget(form.dateStartReservation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.dateStartReservation) }}
+        </div>
+
+        <!-- Date fin réservation -->
+        <div class="input__group">
+            {{ form_label(form.dateEndReservation, 'Date fin réservation') }}
+            {{ form_widget(form.dateEndReservation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.dateEndReservation) }}
+        </div>
+
+        <!-- Adultes -->
+        <div class="input__group">
+            {{ form_label(form.adults, 'Adultes') }}
+            {{ form_widget(form.adults, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.adults) }}
+        </div>
+
+        <!-- Enfants -->
+        <div class="input__group">
+            {{ form_label(form.children, 'Enfants') }}
+            {{ form_widget(form.children, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.children) }}
+        </div>
+
+        
+
+        <div class="button__group">
+            <button type="submit" class="btn">Réserver</button>
+            <button type="reset" class="btn btn--reset">Réinitialiser</button>
+        </div>
+
+    {{ form_end(form) }}
+</section>
+{% endblock %}

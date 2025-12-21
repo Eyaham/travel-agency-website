@@ -1,0 +1,413 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-3">Tableau de Bord Administrateur</h1>
+ 
+            <!-- Debug Information -->
+            <div class="alert alert-info">
+
+                <small>
+                    <strong>Informations de Débogage:</strong><br>
+                    Réservations: {{ reservations|length }} | 
+                    Hôtels: {{ hotels|length }} | 
+                    Destinations: {{ destinations|length }} | 
+                    Activités: {{ activities|length }} | 
+                    Contacts: {{ contacts|length }}
+                </small>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <div class="stats-dashboard">
+                <div class="row mb-5">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">{{ stats.total_reservations }}</h5>
+                            <p class="card-text">Total Réservations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">{{ stats.total_clients }}</h5>
+                            <p class="card-text">Clients Uniques</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">{{ stats.total_hotels }}</h5>
+                            <p class="card-text">Hôtels</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning">{{ stats.total_activities }}</h5>
+                            <p class="card-text">Activités</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-secondary">{{ stats.total_destinations }}</h5>
+                            <p class="card-text">Destinations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">{{ stats.total_contacts }}</h5>
+                            <p class="card-text">Messages Contact</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">{{ stats.recent_contacts|length }}</h5>
+                            <p class="card-text">Messages (7j)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card text-center stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">-</h5>
+                            <p class="card-text">Réservations (7j)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="d-flex gap-3 flex-wrap mb-5">
+                <a class="btn btn-primary btn-lg" href="{{ path('app_admin_hotel_new') }}">
+                    <i class="fas fa-plus me-2"></i>Ajouter un hôtel
+                </a>
+                <a class="btn btn-primary btn-lg" href="{{ path('app_admin_destination_new') }}">
+                    <i class="fas fa-plus me-2"></i>Ajouter une destination
+                </a>
+                <a class="btn btn-primary btn-lg" href="{{ path('app_admin_activity_new') }}">
+                    <i class="fas fa-plus me-2"></i>Ajouter une activité
+                </a>
+                <a class="btn btn-success btn-lg" href="{{ path('app_admin_reservation_new') }}">
+                    <i class="fas fa-plus me-2"></i>Ajouter une réservation
+                </a>
+            </div>
+
+    <h2 class="mt-5 mb-4">
+                <i class="fas fa-calendar-check me-2"></i>Réservations
+            </h2>
+            <div class="card shadow-lg mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Liste des Réservations</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 table-full-width table-compact">
+                            <thead class="table-light">
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th style="width: 120px;">Civilité</th>
+                                <th style="width: 200px;">Nom</th>
+                                <th style="width: 250px;">Email</th>
+                                <th style="width: 150px;">Téléphone</th>
+                                <th style="width: 200px;">Hôtel</th>
+                                <th style="width: 200px;">Activité</th>
+                                <th style="width: 200px;">Dates</th>
+                                <th style="width: 100px;">Adultes</th>
+                                <th style="width: 100px;">Enfants</th>
+                                <th class="actions-column">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for r in reservations %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ r.id }}</span></td>
+                                    <td>{{ r.civility }}</td>
+                                    <td><strong>{{ r.firstName }} {{ r.lastName }}</strong></td>
+                                    <td>{{ r.email }}</td>
+                                    <td>{{ r.phone }}</td>
+                                    <td>{{ r.hotel ? r.hotel.name : '-' }}</td>
+                                    <td>{{ r.activity ? r.activity.name : '-' }}</td>
+                                    <td>{{ r.dateStartReservation ? r.dateStartReservation|date('Y-m-d') : '' }} → {{ r.dateEndReservation ? r.dateEndReservation|date('Y-m-d') : '' }}</td>
+                                    <td>{{ r.adults }}</td>
+                                    <td>{{ r.children }}</td>
+                                    <td class="actions-column">
+                                        <form method="post" action="{{ path('app_admin_reservation_delete', {id: r.id}) }}" onsubmit="return confirm('Supprimer cette réservation ?');" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete_reservation_' ~ r.id) }}">
+                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                <i class="fas fa-trash me-1"></i>Supprimer
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="11" class="text-center text-muted py-4">
+                                    <i class="fas fa-inbox fa-2x mb-2"></i><br>
+                                    <strong>Aucune réservation</strong><br>
+                                    <small>Commencez par ajouter une réservation</small>
+                                </td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    <h2 class="mt-5 mb-4">
+                <i class="fas fa-hotel me-2"></i>Hôtels
+            </h2>
+            <div class="card shadow-lg mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Liste des Hôtels</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 table-full-width table-compact">
+                            <thead class="table-light">
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th style="width: 300px;">Nom</th>
+                                <th style="width: 400px;">Adresse</th>
+                                <th style="width: 150px;">Téléphone</th>
+                                <th style="width: 120px;">Prix / nuit</th>
+                                <th class="actions-column">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for h in hotels %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ h.id }}</span></td>
+                                    <td><strong>{{ h.name }}</strong></td>
+                                    <td>{{ h.address }}</td>
+                                    <td>{{ h.phone }}</td>
+                                    <td><span class="badge bg-success">{{ h.pricePerNight }} €</span></td>
+                                    <td class="actions-column">
+                                        <a class="btn btn-sm btn-outline-primary" href="{{ path('app_admin_hotel_edit', {id: h.id}) }}">
+                                            <i class="fas fa-edit me-1"></i>Modifier
+                                        </a>
+                                        <form method="post" action="{{ path('app_admin_hotel_delete', {id: h.id}) }}" onsubmit="return confirm('Supprimer cet hôtel ?');" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete_hotel_' ~ h.id) }}">
+                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                <i class="fas fa-trash me-1"></i>Supprimer
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="6" class="text-center text-muted py-4">
+                                    <i class="fas fa-hotel fa-2x mb-2"></i><br>
+                                    <strong>Aucun hôtel</strong><br>
+                                    <small>Commencez par ajouter un hôtel</small>
+                                </td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    <h2 class="mt-5 mb-4">
+                <i class="fas fa-map-marker-alt me-2"></i>Destinations
+            </h2>
+            <div class="card shadow-lg mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Liste des Destinations</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 table-full-width table-compact">
+                            <thead class="table-light">
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th style="width: 300px;">Nom</th>
+                                <th style="width: 250px;">Pays</th>
+                                <th style="width: 200px;">Climat</th>
+                                <th class="actions-column">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for d in destinations %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ d.id }}</span></td>
+                                    <td><strong>{{ d.name }}</strong></td>
+                                    <td>{{ d.country }}</td>
+                                    <td>{{ d.climate }}</td>
+                                    <td class="actions-column">
+                                        <a class="btn btn-sm btn-outline-primary" href="{{ path('app_admin_destination_edit', {id: d.id}) }}">
+                                            <i class="fas fa-edit me-1"></i>Modifier
+                                        </a>
+                                        <form method="post" action="{{ path('app_admin_destination_delete', {id: d.id}) }}" onsubmit="return confirm('Supprimer cette destination ?');" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete_destination_' ~ d.id) }}">
+                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                <i class="fas fa-trash me-1"></i>Supprimer
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="5" class="text-center text-muted py-4">
+                                    <i class="fas fa-map-marked-alt fa-2x mb-2"></i><br>
+                                    <strong>Aucune destination</strong><br>
+                                    <small>Commencez par ajouter une destination</small>
+                                </td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    <h2 class="mt-5 mb-4">
+                <i class="fas fa-envelope me-2"></i>Messages de contact
+            </h2>
+            <div class="card shadow-lg mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Messages des Utilisateurs</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 table-full-width table-compact">
+                            <thead class="table-light">
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th style="width: 250px;">Nom</th>
+                                <th style="width: 300px;">Email</th>
+                                <th style="width: 150px;">Téléphone</th>
+                                <th style="width: 300px;">Sujet</th>
+                                <th style="width: 180px;">Date</th>
+                                <th class="actions-column">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for c in contacts %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ c.id }}</span></td>
+                                    <td><strong>{{ c.name }}</strong></td>
+                                    <td>{{ c.email }}</td>
+                                    <td>{{ c.phone ?: '-' }}</td>
+                                    <td>{{ c.subject }}</td>
+                                    <td>{{ c.createdAt ? c.createdAt|date('Y-m-d H:i') : '' }}</td>
+                                    <td class="actions-column">
+                                        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#contactModal{{ c.id }}">
+                                            <i class="fas fa-eye me-1"></i>Voir
+                                        </button>
+                                        <form method="post" action="{{ path('app_admin_contact_delete', {id: c.id}) }}" onsubmit="return confirm('Supprimer ce message de contact ?');" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete_contact_' ~ c.id) }}">
+                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                <i class="fas fa-trash me-1"></i>Supprimer
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                
+                <!-- Modal for viewing full message -->
+                <div class="modal fade" id="contactModal{{ c.id }}" tabindex="-1" aria-labelledby="contactModalLabel{{ c.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="contactModalLabel{{ c.id }}">Message de {{ c.name }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Email:</strong> {{ c.email }}</p>
+                                {% if c.phone %}
+                                    <p><strong>Téléphone:</strong> {{ c.phone }}</p>
+                                {% endif %}
+                                <p><strong>Sujet:</strong> {{ c.subject }}</p>
+                                <p><strong>Date:</strong> {{ c.createdAt ? c.createdAt|date('Y-m-d H:i') : '' }}</p>
+                                <hr>
+                                <p><strong>Message:</strong></p>
+                                <div class="border p-3 bg-light">
+                                    {{ c.message|nl2br }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            {% else %}
+                                <tr><td colspan="7" class="text-center text-muted py-4">
+                                    <i class="fas fa-envelope-open fa-2x mb-2"></i><br>
+                                    <strong>Aucun message de contact</strong><br>
+                                    <small>Aucun message n'a été reçu pour le moment</small>
+                                </td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    <h2 class="mt-5 mb-4">
+                <i class="fas fa-hiking me-2"></i>Activités
+            </h2>
+            <div class="card shadow-lg mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Liste des Activités</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 table-full-width table-compact">
+                            <thead class="table-light">
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th style="width: 400px;">Nom</th>
+                                <th style="width: 120px;">Prix</th>
+                                <th style="width: 200px;">Durée</th>
+                                <th class="actions-column">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for a in activities %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ a.id }}</span></td>
+                                    <td><strong>{{ a.name }}</strong></td>
+                                    <td><span class="badge bg-success">{{ a.price }} €</span></td>
+                                    <td>{{ a.duration }}</td>
+                                    <td class="actions-column">
+                                        <a class="btn btn-sm btn-outline-primary" href="{{ path('app_admin_activity_edit', {id: a.id}) }}">
+                                            <i class="fas fa-edit me-1"></i>Modifier
+                                        </a>
+                                        <form method="post" action="{{ path('app_admin_activity_delete', {id: a.id}) }}" onsubmit="return confirm('Supprimer cette activité ?');" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete_activity_' ~ a.id) }}">
+                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                <i class="fas fa-trash me-1"></i>Supprimer
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="5" class="text-center text-muted py-4">
+                                    <i class="fas fa-running fa-2x mb-2"></i><br>
+                                    <strong>Aucune activité</strong><br>
+                                    <small>Commencez par ajouter une activité</small>
+                                </td></tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Destination;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
+class DestinationType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la destination'
+            ])
+            ->add('country', TextType::class, [
+                'label' => 'Pays'
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'required' => false
+            ])
+            ->add('climate', TextType::class, [
+                'label' => 'Climat',
+                'required' => false
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Destination::class,
+        ]);
+    }
+}

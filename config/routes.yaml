@@ -5,7 +5,8 @@
 # See also https://symfony.com/doc/current/routing.html
 
 # To list all registered routes, run the following command:
-#   bin/console debug:router
+
 
 controllers:
-    resource: routing.controllers
+    resource: ../src/Controller/
+    type: attribute

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservations - TravelWorld</title>
+
+  <link rel="stylesheet" href="{{ asset('styles.css') }}">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <a href="{{ path('app_home') }}">
+        <img src="{{ asset('images/logo.jpg') }}" alt="logo" />
+      </a>
+    </div>
+
+    <ul class="nav__links">
+      <li class="link"><a href="{{ path('app_home') }}">Accueil</a></li>
+      <li class="link"><a href="{{ path('book') }}">Reservation</a></li>
+      <li class="link"><a href="{{ path('blog') }}">Plus</a></li>
+      <li class="link"><a href="{{ path('contact') }}">Contact</a></li>
+
+      {% if app.user %}
+        <li class="link"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+      {% else %}
+        <li class="link"><a href="{{ path('app_login') }}">Connecter</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <section class="section__container">
+    <h2 class="section__header">Réservez votre séjour</h2>
+
+    <form class="booking__container">
+
+      <!-- Civilité -->
+      <div class="input__group">
+        <label for="civilite"><b>Civilité</b></label>
+        <select name="civilite" id="civilite">
+          <option value="mr">Monsieur</option>
+          <option value="mme">Madame</option>
+          <option value="mlle">Mademoiselle</option>
+        </select>
+      </div>
+
+      <!-- Nom -->
+      <div class="input__group">
+        <label for="nom"><b>Nom</b></label>
+        <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required>
+      </div>
+
+      <!-- Prénom -->
+      <div class="input__group">
+        <label for="prenom"><b>Prénom</b></label>
+        <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prénom" required>
+      </div>
+
+      <!-- Email -->
+      <div class="input__group">
+        <label for="email"><b>Email</b></label>
+        <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="input__group">
+        <label for="telephone"><b>Numéro de téléphone</b></label>
+        <input type="tel" id="telephone" name="telephone" placeholder="Entrez votre numéro de téléphone" required>
+      </div>
+
+      <!-- Destination -->
+      <div class="input__group">
+        <label for="destination"><b>Destination</b></label>
+        <select name="destination" id="destination" required>
+          <option value="france">France</option>
+          <option value="italie">Italie</option>
+          <option value="tunisie">Tunisie</option>
+          <option value="espagne">Espagne</option>
+          <option value="usa">USA</option>
+          <option value="dubai">Dubaï</option>
+          <option value="london">Londres</option>
+          <option value="japan">Japon</option>
+          <option value="turkie">Turquie</option>
+        </select>
+      </div>
+
+      <!-- Activité -->
+      <div class="input__group">
+        <label for="Activite"><b>Activité</b></label>
+        <select name="Activite" id="Activite" required>
+          <option value="visite_monuments">Visite de monuments</option>
+          <option value="musee">Visite de musée</option>
+          <option value="atelier_artisanat">Atelier artisanat</option>
+          <option value="randonnee">Randonnée</option>
+          <option value="trekking">Trekking en montagne</option>
+          <option value="plongee">Plongée sous-marine</option>
+          <option value="kayak">Kayak / Canoë</option>
+          <option value="safari">Safari 4×4</option>
+          <option value="camping">Camping / Nuit dans le désert</option>
+          <option value="plage">Journée plage</option>
+          <option value="spa">Spa & Massage</option>
+          <option value="croisiere">Croisière</option>
+          <option value="soiree_folklorique">Soirée folklorique</option>
+          <option value="diner_spectacle">Dîner spectacle</option>
+          <option value="atelier_cuisine">Atelier cuisine locale</option>
+          <option value="degustation">Dégustation</option>
+          <option value="shopping_souk">Shopping au souk</option>
+          <option value="shopping_mall">Shopping centre commercial</option>
+          <option value="equitation">Équitation</option>
+          <option value="vtt">VTT</option>
+          <option value="jetski">Jet-ski</option>
+          <option value="paddle">Paddle</option>
+        </select>
+      </div>
+
+      <!-- Hôtel -->
+      <div class="input__group">
+        <label for="Hotel"><b>Hôtel</b></label>
+        <select name="Hotel" id="Hotel" required>
+          <option value="hotel_3_etoiles">Hôtel 3 étoiles</option>
+          <option value="hotel_4_etoiles">Hôtel 4 étoiles</option>
+          <option value="hotel_5_etoiles">Hôtel 5 étoiles</option>
+
+          <option value="resort">Resort</option>
+          <option value="hotel_spa">Hôtel SPA</option>
+          <option value="hotel_bord_mer">Bord de mer</option>
+          <option value="hotel_centre_ville">Centre-ville</option>
+
+          <option value="riad">Riad</option>
+          <option value="boutique_hotel">Boutique hôtel</option>
+          <option value="appart_hotel">Appart hôtel</option>
+
+          <option value="auberge">Auberge</option>
+          <option value="camping">Camping</option>
+        </select>
+      </div>
+
+      <!-- Dates -->
+      <div class="input__group">
+        <label for="checkin"><b>Date d'arrivée</b></label>
+        <input type="date" id="checkin" name="checkin" required>
+      </div>
+
+      <div class="input__group">
+        <label for="checkout"><b>Date de départ</b></label>
+        <input type="date" id="checkout" name="checkout" required>
+      </div>
+
+      <!-- Nombre d'adultes -->
+      <div class="input__group">
+        <label for="adults"><b>Nombre d'adultes</b></label>
+        <input type="number" id="adults" name="adults" min="1" value="1" required>
+      </div>
+
+      <!-- Nombre d'enfants -->
+      <div class="input__group">
+        <label for="children"><b>Nombre d'enfants</b></label>
+        <input type="number" id="children" name="children" min="0" value="0" required>
+      </div>
+
+      <div class="manage__links">
+        <a class="btn" href="{{ path('hotel_add') }}">Ajouter un Hôtel</a>
+        <a class="btn" href="{{ path('destination_add') }}">Ajouter une Destination</a>
+        <a class="btn" href="{{ path('activity_add') }}">Ajouter une Activité</a>
+      </div>
+
+      <!-- Boutons -->
+      <button type="submit" class="btn">Réserver</button>
+      <button type="reset" class="btn btn--reset">Reset</button>
+
+    </form>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__bar">© 2025 MonSite. Tous droits réservés.</div>
+  </footer>
+
+</body>
+</html>

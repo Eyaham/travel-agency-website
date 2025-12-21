@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - MonSite</title>
+
+    {# Feuille de style #}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="logo">
+        <a href="{{ path('app_home') }}">
+            <img src="{{ asset('images/logo.jpg') }}" alt="logo">
+        </a>
+    </div>
+
+    <ul class="nav__links">
+        <li class="link"><a href="{{ path('app_home') }}">Accueil</a></li>
+        <li class="link"><a href="{{ path('app_reservation') }}">Réservation</a></li>
+        <li class="link"><a href="{{ path('app_plus') }}">Blog</a></li>
+        <li class="link"><a href="{{ path('app_contact') }}">Contact</a></li>
+
+        {% if app.user %}
+            <li class="link"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+        {% else %}
+            <li class="link"><a href="{{ path('app_login') }}">Connexion</a></li>
+            <li class="link"><a href="{{ path('app_register') }}">Inscription</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<!-- Blog Section -->
+<div class="container">
+    <h1>Réservez des vacances d'été inoubliables qui vous correspondent</h1>
+    <p>
+        Détendez-vous, le soleil est au rendez-vous et le moment est propice pour partir
+        en vacances, alors qu'attendez-vous ? Nous sommes ici pour vous proposer
+        nos destinations de vacances les plus ensoleillées.
+    </p>
+
+    <div class="cards">
+        <div class="card">
+            <img src="{{ asset('images/photo1.png') }}" alt="Vacances Tout Compris">
+            <div class="card-content">
+                <h3>Vacances Tout Compris</h3>
+                <p>
+                    Tous vos besoins sont couverts avec une formule séjour tout compris.
+                    Tous les extras qui font toute une vie de souvenirs.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ asset('images/photo2.png') }}" alt="Vacances en famille">
+            <div class="card-content">
+                <h3>Vacances en famille</h3>
+                <p>
+                    Des offres exceptionnelles pour toute la famille !
+                    Ayez l'esprit tranquille en réservant des vacances en famille tout compris.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ asset('images/photo3.png') }}" alt="Vacances à la plage">
+            <div class="card-content">
+                <h3>Vacances à la plage</h3>
+                <p>
+                    Organisez des vacances à la plage en fonction de vos besoins
+                    avec une formule vol + hôtel. La vie est toujours plus belle à la plage !
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Conseils pour réserver un voyage pas cher avec une formule vol + hôtel et/ou location de voiture</h1>
+
+<div class="container">
+    <div class="column">
+        <h2>Comment trouver la formule vacances qui vous convient ?</h2>
+        <p>
+            Que vous recherchiez un <a href="#">week-end à la mer</a> ou des
+            <a href="#">vacances en famille</a>, créez votre voyage sur mesure grâce
+            à nos formules vacances.
+        </p>
+    </div>
+
+    <div class="column">
+        <h2>Comment partir en vacances pour pas cher ?</h2>
+        <p>
+            Nous vous aidons à repérer facilement les prix les plus bas grâce à nos filtres
+            de recherche. Les formules vol + hôtel sont souvent plus avantageuses en basse saison.
+        </p>
+    </div>
+
+    <div class="column">
+        <h2>Quelles sont les meilleures destinations pour des vacances tout inclus ?</h2>
+        <p>
+            Les <a href="#">vacances tout inclus en Espagne</a> et
+            les <a href="#">séjours en Grèce</a> figurent parmi les meilleures offres.
+        </p>
+    </div>
+
+    <div class="column">
+        <h2>Où partir en vacances au soleil ?</h2>
+        <p>
+            Expedia a rassemblé pour vous les <a href="#">meilleures offres tout compris</a>
+            pour vous garantir un séjour réussi.
+        </p>
+    </div>
+</div>
+
+<h2 class="section__header">📍 Top 3 des Destinations en 2025</h2>
+
+<div class="destination-grid">
+    <div class="destination-item">
+        <img src="{{ asset('images/thailand.jpg') }}" alt="Thaïlande">
+        <h3>Thaïlande</h3>
+        <p>Découvrez ses plages paradisiaques et sa culture fascinante.</p>
+    </div>
+
+    <div class="destination-item">
+        <img src="{{ asset('images/paris.jpg') }}" alt="Paris">
+        <h3>Paris, France</h3>
+        <p>Explorez la Ville Lumière avec ses monuments emblématiques.</p>
+    </div>
+
+    <div class="destination-item">
+        <img src="{{ asset('images/rome.jpg') }}" alt="Rome">
+        <h3>Rome, Italie</h3>
+        <p>Plongez dans l'histoire antique de la capitale italienne.</p>
+    </div>
+</div>
+
+<h2 class="section__header">Les 3 meilleures stations de ski au monde</h2>
+
+<div class="destination-grid">
+    <div class="destination-item">
+        <img src="{{ asset('images/Niseko, Japan.png') }}" alt="Niseko, Japan">
+        <h3>Niseko, Japan</h3>
+        <p>Les stations de ski prennent vie au coucher du soleil.</p>
+    </div>
+
+    <div class="destination-item">
+        <img src="{{ asset('images/Aspen, USA.png') }}" alt="Aspen, USA">
+        <h3>Aspen, USA</h3>
+        <p>En hiver, prenez le temps de ralentir le rythme.</p>
+    </div>
+
+    <div class="destination-item">
+        <img src="{{ asset('images/Whistler, Canada.png') }}" alt="Whistler, Canada">
+        <h3>Whistler, Canada</h3>
+        <p>Dans ces villes, vous serez au cœur de la magie de l'hiver.</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer__bar">
+        © 2025 MonSite. Tous droits réservés.
+    </div>
+</footer>
+
+</body>
+</html>

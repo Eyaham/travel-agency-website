@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TravelWorld | Accueil</title>
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('css/styless.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+
+ 
+  <body>
+   <!-- NAVIGATION -->
+<nav>
+  <div class="logo">
+    <a href="{{ path('app_home') }}">TravelWorld</a>
+  </div>
+  <ul class="nav__links">
+    <li class="link"><a href="{{ path('app_home') }}">Accueil</a></li>
+    <li class="link"><a href="{{ path('app_reservation') }}">Reservation</a></li>
+    <li class="link"><a href="{{ path('app_plus') }}">Plus</a></li>
+    <li class="link"><a href="{{ path('app_contact') }}">Contact</a></li>
+
+    {% if app.user %}
+      <li class="link"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+    {% else %}
+      <li class="link"><a href="{{ path('app_login') }}">Connexion</a></li>
+      <li class="link"><a href="{{ path('app_register') }}">Inscription</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+    <!-- HEADER -->
+    <header class="section__container header__container">
+      <div class="header__image__container">
+        <div class="header__content">
+          <h1>Profitez de vos vacances de rêve</h1>
+          <p>Réservez des hôtels, des vols et des forfaits séjour au prix plus bas</p>
+        </div>
+
+        <div class="booking__container">
+          <form>
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" />
+                <label>Destination</label>
+              </div>
+              <p>Ou allez vous?</p>
+            </div>
+
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" />
+                <label>Arrivée</label>
+              </div>
+              <p>Ajouter date</p>
+            </div>
+
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" />
+                <label>Depart</label>
+              </div>
+              <p>Ajouter date</p>
+            </div>
+
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" />
+                <label>Occupations</label>
+              </div>
+            </div>
+          </form>
+
+          <button class="btn">
+            <i class="ri-search-line"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HOTELS RECOMMANDÉS -->
+    <section class="section__container popular__container">
+      <h2 class="section__header">Hotels recommandés</h2>
+
+      <div class="popular__grid">
+
+        <div class="popular__card">
+          <img src="{{ asset('images/plaza.jpg') }}" alt="popular hotel" />
+          <div class="popular__content">
+            <div class="popular__card__header">
+              <h4>The Plaza Hotel</h4>
+              <h4>$400</h4>
+            </div>
+            <p>New York City, USA</p>
+          </div>
+        </div>
+
+        <div class="popular__card">
+          <img src="{{ asset('images/ritz.jpg') }}" alt="popular hotel" />
+          <div class="popular__content">
+            <div class="popular__card__header">
+              <h4>Ritz Paris</h4>
+              <h4>$550</h4>
+            </div>
+            <p>Paris, France</p>
+          </div>
+        </div>
+
+        <div class="popular__card">
+          <img src="{{ asset('images/four.jpg') }}" alt="popular hotel" />
+          <div class="popular__content">
+            <div class="popular__card__header">
+              <h4>The Four Seasons</h4>
+              <h4>$599</h4>
+            </div>
+            <p>London</p>
+          </div>
+        </div>
+
+        <div class="popular__card">
+          <img src="{{ asset('images/atlanta.jpg') }}" alt="popular hotel" />
+          <div class="popular__content">
+            <div class="popular__card__header">
+              <h4>Atlantis The Palm</h4>
+              <h4>$800</h4>
+            </div>
+            <p>Dubai, United Arab Emirates</p>
+          </div>
+        </div>
+
+        <div class="popular__card">
+          <img src="{{ asset('images/hotel-5.jpg') }}" alt="popular hotel" />
+          <div class="popular__content">
+            <div class="popular__card__header">
+              <h4>The Ritz-Carlton</h4>
+              <h4>$649</h4>
+            </div>
+            <p>Tokyo, Japan</p>
+          </div>
+        </div>
+
+        <div class="popular__card">
+          <img src="{{ asset('images/hotel-6.jpg') }}" alt="popular hotel" />
+          <div class="popular__content">
+            <div class="popular__card__header">
+              <h4>Marina Bay Sands</h4>
+              <h4>$549</h4>
+            </div>
+            <p>Madrid, Espagne</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AVIS CLIENTS -->
+    <section class="client">
+      <div class="section__container client__container">
+        <h2 class="section__header">Les avis de nos clients</h2>
+
+        <div class="client__grid">
+
+          <div class="client__card">
+            <img src="{{ asset('images/client.jpg') }}" alt="client" />
+            <p>
+              Le processus de réservation a été fluide et la confirmation instantanée.
+              Je recommande vivement TravelWorld.
+            </p>
+          </div>
+
+          <div class="client__card">
+            <img src="{{ asset('images/client-2.jpg') }}" alt="client" />
+            <p>
+              Le site web a fourni des informations détaillées sur l'hôtel,
+              ce qui m'a aidé à prendre une décision éclairée.
+            </p>
+          </div>
+
+          <div class="client__card">
+            <img src="{{ asset('images/client-3.jpg') }}" alt="client" />
+            <p>
+              I was able to book a room within minutes. Excellent service!
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOMPENSES -->
+    <section class="section__container">
+      <div class="reward__container">
+        <p>100+ discount codes</p>
+        <h4>Rejoignez les récompenses et découvrez des réductions incroyables</h4>
+        <button class="reward__btn">
+          <p>Participez</p>
+        </button>
+      </div>
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="section__container footer__container">
+
+        <div class="footer__col">
+          <div class="logo">
+            <img src="{{ asset('images/logo.jpg') }}" alt="logo" />
+          </div>
+          <p>
+            Travelworld est un site de réservation d'hôtels
+            qui aide les voyageurs à trouver des séjours parfaits.
+          </p>
+        </div>
+
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <ul>
+            <li>4 Rue de Paris, Tunis</li>
+            <li><a href="mailto:info@travelw.com">info@travelw.com</a></li>
+            <li><a href="tel:+21655888635">+216 55 888 635</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Legal</h4>
+          <p>FAQs</p>
+          <p>Terms & Conditions</p>
+          <p>Privacy Policy</p>
+        </div>
+
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <p>Social Media</p>
+          <p>Help Center</p>
+          <p>Partnerships</p>
+        </div>
+
+      </div>
+
+      <div class="footer">
+        <div class="footer__col">
+          <h4>Paiement sécurisé</h4>
+          <div class="logo__container">
+            <img src="{{ asset('images/logo4.jpg') }}" class="logo1" />
+            <img src="{{ asset('images/logo2.jpg') }}" class="logo1" />
+            <img src="{{ asset('images/logo3.jpg') }}" class="logo1" />
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4>Nos partenaires</h4>
+          <div class="logo__container">
+            <img src="{{ asset('images/emirates.jpg') }}" class="logo1" />
+            <img src="{{ asset('images/tun.jpg') }}" class="logo1" />
+            <img src="{{ asset('images/ooredoo.jpg') }}" class="logo1" />
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <footer class="footers">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+
+      <div class="footers__bar">© 2025 MonSite. Tous droits réservés.</div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/6558443b63.js" crossorigin="anonymous"></script>
+
+  </body>
+</html>

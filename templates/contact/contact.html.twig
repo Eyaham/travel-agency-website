@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Contact – MonSite
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <meta name="turbo-visit-control" content="reload">
+    <style>
+        .section__container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .section__header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .input__group {
+            margin-bottom: 20px;
+        }
+        .input__group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .input__group input,
+        .input__group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .input__group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+        .btn[type="submit"] {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .btn[type="reset"] {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn[type="reset"]:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="section__container">
+    <h2 class="section__header">Contactez-nous</h2>
+
+    {% for flash in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ flash }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
+        <div class="input__group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="input__group">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+            {{ form_errors(form.email) }}
+        </div>
+
+        <div class="input__group">
+            {{ form_label(form.phone) }}
+            {{ form_widget(form.phone) }}
+            {{ form_errors(form.phone) }}
+        </div>
+
+        <div class="input__group">
+            {{ form_label(form.subject) }}
+            {{ form_widget(form.subject) }}
+            {{ form_errors(form.subject) }}
+        </div>
+
+        <div class="input__group">
+            {{ form_label(form.message) }}
+            {{ form_widget(form.message) }}
+            {{ form_errors(form.message) }}
+        </div>
+
+        <button type="submit" class="btn">Envoyer</button>
+        <button type="reset" class="btn">Reset</button>
+    {{ form_end(form) }}
+</section>
+{% endblock %}
